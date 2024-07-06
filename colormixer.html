@@ -1,1 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Splash Bash!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
 
+        .container {
+            text-align: center;
+        }
+
+        .slider-container {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .slider-container span {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+
+        .result {
+            margin: 20px 0;
+        }
+
+        .color-box {
+            width: 200px;
+            height: 200px;
+            background-color: white;
+            border: 1px solid #000;
+            display: inline-block;
+        }
+
+        .reset-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .color-sphere {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .red-sphere {
+            background-color: red;
+        }
+
+        .blue-sphere {
+            background-color: blue;
+        }
+
+        .green-sphere {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Color Splash Bash!</h1>
+        <div class="result">
+            <div id="mixedColor" class="color-box"></div>
+        </div>
+        <div class="slider-container">
+            <div class="color-sphere red-sphere"></div>
+            <input type="range" id="redRange" min="0" max="100" value="0" onchange="updateMixedColor()">
+            <span id="redValue" class="slider-value">0%</span>
+        </div>
+        <div class="slider-container">
+            <div class="color-sphere blue-sphere"></div>
+            <input type="range" id="blueRange" min="0" max="100" value="0" onchange="updateMixedColor()">
+            <span id="blueValue" class="slider-value">0%</span>
+        </div>
+        <div class="slider-container">
+            <div class="color-sphere green-sphere"></div>
+            <input type="range" id="greenRange" min="0" max="100" value="0" onchange="updateMixedColor()">
+            <span id="greenValue" class="slider-value">0%</span>
+        </div>
+        <button class="reset-btn" onclick="resetColors()">Reset</button>
+    </div>
+    <script>
+        function updateMixedColor() {
+            const red = document.getElementById('redRange').value;
+            const blue = document.getElementById('blueRange').value;
+            const green = document.getElementById('greenRange').value;
+            
+            document.getElementById('redValue').textContent = `${red}%`;
+            document.getElementById('blueValue').textContent = `${blue}%`;
+            document.getElementById('greenValue').textContent = `${green}%`;
+
+            const mixedColor = `rgb(
+                ${Math.min(Math.round((red / 100) * 255), 255)},
+                ${Math.min(Math.round((green / 100) * 255), 255)},
+                ${Math.min(Math.round((blue / 100) * 255), 255)}
+            )`;
+            
+            document.getElementById('mixedColor').style.backgroundColor = mixedColor;
+        }
+
+        function resetColors() {
+            document.getElementById('redRange').value = 0;
+            document.getElementById('blueRange').value = 0;
+            document.getElementById('greenRange').value = 0;
+            updateMixedColor();
+        }
+
+        // Initialize the color display
+        updateMixedColor();
+    </script>
+</body>
+</html>
